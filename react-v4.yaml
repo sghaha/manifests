@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-v4
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-v4
+  template:
+    metadata:
+      labels:
+        app: react-v4
+    spec:
+      containers:
+        - name: react-v4
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:65537ae6
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-v4
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+spec:
+  selector:
+    app: react-v4
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

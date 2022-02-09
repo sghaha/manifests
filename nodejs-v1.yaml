@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-v1
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-v1
+  template:
+    metadata:
+      labels:
+        app: nodejs-v1
+    spec:
+      containers:
+        - name: nodejs-v1
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:185f048c
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-v1
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+spec:
+  selector:
+    app: nodejs-v1
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
