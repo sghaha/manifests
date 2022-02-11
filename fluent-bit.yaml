@@ -131,7 +131,7 @@ spec:
             - containerPort: 2020
           env:
             - name: FLUENT_ELASTICSEARCH_HOST
-              value: "a1d3ecd0674a9479bbdf41c8542a1f48-804168915.ap-northeast-2.elb.amazonaws.com"
+              value: "a68d10c0e7b2241da859517799af33f9-419776523.ap-northeast-2.elb.amazonaws.com"
             - name: FLUENT_ELASTICSEARCH_PORT
               value: "9200"
             - name: FLUENT_ELASTICSEARCH_SCHEME

@@ -786,7 +786,7 @@ spec:
     spec:
       containers:
       - args:
-        - --cluster-name=eks-demo
+        - --cluster-name=sghaha-eks
         - --ingress-class=alb
         image: amazon/aws-alb-ingress-controller:v2.2.1
         livenessProbe:

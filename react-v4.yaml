@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: react-v4
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:65537ae6
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:edf0fbcf
           imagePullPolicy: Always
           ports:
             - containerPort: 80
