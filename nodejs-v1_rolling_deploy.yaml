@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-v1
+  namespace: default
+spec:
+  replicas: 2
+  minReadySeconds: 30
+  # pod이 Ready 단계 부터 Available 단계 까지 식단 차이 시간을 설정하지 않으면 ready에서 곧바로 avaliable이 되고 순단 현상이 일어난다. 적절한 시간을 테스트하여 설정하는것이 좋다.
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      #rolling update 중 정해진 Pod 수 이상으로 만들 수 있는 Pod의 최대 개수. 기본값은 25%
+      maxUnavailable: 0
+      #olling update 중 unavailable 상태인 Pod의 최대 개수를 설정. rollgin update 중 사용할 수 없는 Pod의 최대 개수. 값은 0보다 큰 정수를 통해 Pod의 절대 개수 설정이 가능하고, “25%“와 같이 percentage 표현 가능 . maxUnavailable에서 percentage 계산은 rounding down(내림) 방식이며 기본값은 25% 이다. maxSurge와 maxUnavailable 값이 동시에 0이 될 수 없다
+  selector:
+    matchLabels:
+      app: nodejs-v1
+  template:
+    metadata:
+      labels:
+        app: nodejs-v1
+    spec:
+      containers:
+        - name: nodejs-v1
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:6d44fffa
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          #readinessProbe:
+            #httpGet:
+              #path: /prbl/1
+              #port: 8080
+            #initialDelaySeconds: 5
+            #periodSeconds: 5
+            #successThreshold: 1
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 40"]

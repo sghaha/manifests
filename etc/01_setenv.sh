@@ -4,7 +4,7 @@ echo "sghaha"
 
 
 
-cd ~/environment
+cd ~/environment/manifests/etc
 pwd
 
 eksctl create cluster -f sghaha-eks-cluster.yaml

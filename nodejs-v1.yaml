@@ -5,7 +5,7 @@ metadata:
   name: nodejs-v1
   namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: nodejs-v1
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nodejs-v1
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:185f048c
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:e9dd0d32
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
