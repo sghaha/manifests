@@ -2,21 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-v4
+  name: react-v4-test
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: react-v4
+      app: react-v4-test
   template:
     metadata:
       labels:
-        app: react-v4
+        app: react-v4-test
     spec:
       containers:
-        - name: react-v4
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:4fce46ac
+        - name: react-v4-test
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:f38504ff
+          #92248c25
+          #f38504ff 새거
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -24,14 +26,35 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-v4
+  name: react-v4-test
   annotations:
     alb.ingress.kubernetes.io/healthcheck-path: "/"
 spec:
   selector:
-    app: react-v4
+    app: react-v4-test
   type: NodePort
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "frontend-ingress-test"
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: "react-v4-test"
+                port:
+                  number: 80

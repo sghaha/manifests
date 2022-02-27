@@ -2,36 +2,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodejs-v1
+  name: nodejs-v1-test
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodejs-v1
+      app: nodejs-v1-test
   template:
     metadata:
       labels:
-        app: nodejs-v1
+        app: nodejs-v1-test
     spec:
       containers:
-        - name: nodejs-v1
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:e9dd0d32
+        - name: nodejs-v1-test
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:db386eda
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
 ---
-apiVersion: v1
-kind: Service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: nodejs-v1
+  name: "backend-ingress-test"
+  namespace: default
   annotations:
-    alb.ingress.kubernetes.io/healthcheck-path: "/"
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
 spec:
-  selector:
-    app: nodejs-v1
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: "nodejs-v1-test"
+                port:
+                  number: 8080

@@ -25,17 +25,12 @@ spec:
     spec:
       containers:
         - name: nodejs-v1
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:6d44fffa
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:db386eda
+          #db386eda 새거
+          #fbefd3d0 헌거
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          #readinessProbe:
-            #httpGet:
-              #path: /prbl/1
-              #port: 8080
-            #initialDelaySeconds: 5
-            #periodSeconds: 5
-            #successThreshold: 1
           lifecycle:
             preStop:
               exec:
