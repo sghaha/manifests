@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nodejs-v1-test
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:db386eda
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:c088ffa5
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

@@ -21,16 +21,9 @@ spec:
     spec:
       containers:
         - name: react-v4
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:520d2d1a
-          # 4ab85874 헌거
-          # b1aa067c 새거
-          # db86812a 더 새거
-          # 74d28205 더더새거(임시)
-          # 7bcffa03 엔진엑스까지 한거 (임시1)
-          # 0a929d66 엔진엑스 설정 다시 해본거 [임시] 앞쪽 - 엔진엑스 에러
-          # e7a8d103 엔진엑스 설정 다시 해본거 [임시] 뒤쪽 - 한방에 됐지만 이건 이전에 엔진엑스 에러때무일수 있으니 7bcffa03로 다시 돌아간다음에 돌아와 보자
-          # 562f07ca 바로 위에꺼랑 같은데 문구만 바꿔본거 ,<임시> 앞에 
-          # 520d2d1a minReadySeconds: 60주석 처리하고 코드는 원복해보고 임시라는 글자 없이 해본거
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:687536e1
+          # 520d2d1a 헌거
+          # 687536e1 새거
           imagePullPolicy: Always
           ports:
             - containerPort: 80
