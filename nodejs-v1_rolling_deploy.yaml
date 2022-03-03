@@ -5,7 +5,7 @@ metadata:
   name: nodejs-v1
   namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   minReadySeconds: 30
   # pod이 Ready 단계 부터 Available 단계 까지 식단 차이 시간을 설정하지 않으면 ready에서 곧바로 avaliable이 되고 순단 현상이 일어난다. 적절한 시간을 테스트하여 설정하는것이 좋다.
   strategy:
@@ -23,15 +23,17 @@ spec:
       labels:
         app: nodejs-v1
     spec:
+      serviceAccountName: ssm-kms-serviceaccount
+      #parameter Store를 이용하기 위해 kms도 필요해서 해당 policy넣고 만든 서비스 어카운트
       containers:
         - name: nodejs-v1
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:c088ffa5
-          #db386eda 새거
-          #fbefd3d0 헌거
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:c6496302
+          #c6496302 새거
+          #66c53466 헌거
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          lifecycle:
+          lifecycle: #이거 안해주면 터미네이팅될때 이전 파드로 트래픽 가면서 에러나드라
             preStop:
               exec:
                 command: ["/bin/sh", "-c", "sleep 40"]

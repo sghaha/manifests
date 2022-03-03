@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-v4-test
+  name: react-v4-stage
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: react-v4-test
+      app: react-v4-stage
   template:
     metadata:
       labels:
-        app: react-v4-test
+        app: react-v4-stage
     spec:
       containers:
-        - name: react-v4-test
+        - name: react-v4-stage
           image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:f38504ff
           #92248c25
           #f38504ff 새거
@@ -26,12 +26,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-v4-test
+  name: react-v4-stage
   annotations:
     alb.ingress.kubernetes.io/healthcheck-path: "/"
 spec:
   selector:
-    app: react-v4-test
+    app: react-v4-stage
   type: NodePort
   ports:
     - protocol: TCP
@@ -41,7 +41,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "frontend-ingress-test"
+  name: "frontend-ingress-stage"
   namespace: default
   annotations:
     kubernetes.io/ingress.class: alb
@@ -55,6 +55,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "react-v4-test"
+                name: "react-v4-stage"
                 port:
                   number: 80

@@ -4,12 +4,12 @@ metadata:
   name: react-v4
   namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   #minReadySeconds: 60
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 2
       maxUnavailable: 0
   selector:
     matchLabels:
@@ -21,9 +21,9 @@ spec:
     spec:
       containers:
         - name: react-v4
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:687536e1
-          # 520d2d1a 헌거
-          # 687536e1 새거
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/react-v4:0ba34cf3
+          # c95a66bf 헌거
+          # 0ba34cf3 새거
           imagePullPolicy: Always
           ports:
             - containerPort: 80

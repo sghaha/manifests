@@ -4,7 +4,7 @@ kind: ClusterConfig
 
 metadata:
   name: sghaha-eks # 생성할 EKS 클러스터명
-  region: ap-northeast-1 # 클러스터를 생성할 리전
+  region: ap-northeast-2 # 클러스터를 생성할 리전
   version: "1.21"
 
 vpc:
@@ -12,9 +12,9 @@ vpc:
 
 managedNodeGroups:
   - name: node-group # 클러스터의 노드 그룹명
-    instanceType: t3.medium #m5.large # 클러스터 워커 노드의 인스턴스 타입
+    instanceType: t3.small # 클러스터 워커 노드의 인스턴스 타입
     desiredCapacity: 1 # 클러스터 워커 노드의 갯수
-    volumeSize: 10  # 클러스터 워커 노드의 EBS 용량 (단위: GiB)
+    volumeSize: 30  # 클러스터 워커 노드의 EBS 용량 (단위: GiB)
     iam:
       withAddonPolicies:
         imageBuilder: true # Amazon ECR에 대한 권한 추가

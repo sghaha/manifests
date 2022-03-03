@@ -2,29 +2,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodejs-v1-test
+  name: nodejs-v1-stage
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodejs-v1-test
+      app: nodejs-v1-stage
   template:
     metadata:
       labels:
-        app: nodejs-v1-test
+        app: nodejs-v1-stage
     spec:
+      serviceAccountName: ssm-kms-serviceaccount
       containers:
-        - name: nodejs-v1-test
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:c088ffa5
+        - name: nodejs-v1-stage
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:66c53466
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-v1-stage
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+spec:
+  selector:
+    app: nodejs-v1-stage
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080 
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "backend-ingress-test"
+  name: "backend-ingress-stage"
   namespace: default
   annotations:
     kubernetes.io/ingress.class: alb
@@ -38,6 +54,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "nodejs-v1-test"
+                name: "nodejs-v1-stage"
                 port:
                   number: 8080
