@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: getcommu-v1
+  namespace: default
+spec:
+  replicas: 1
+  #minReadySeconds: 60
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: getcommu-v1
+  template:
+    metadata:
+      labels:
+        app: getcommu-v1
+    spec:
+      containers:
+        - name: getcommu-v1
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/getcommu-v1:ec8bbb4d
+          #  헌거
+          # ec8bbb4d 새거
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 40"]
