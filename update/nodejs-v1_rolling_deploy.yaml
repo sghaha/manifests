@@ -27,9 +27,9 @@ spec:
       #parameter Store를 이용하기 위해 kms도 필요해서 해당 policy넣고 만든 서비스 어카운트
       containers:
         - name: nodejs-v1
-          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:bb6d41c9
-          #1bb782b5 헌거
-          #bb6d41c9 새거
+          image: 243582926723.dkr.ecr.ap-northeast-2.amazonaws.com/nodejs-v1:c48e5812
+          #57035546 헌거
+          #c48e5812 새거
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
